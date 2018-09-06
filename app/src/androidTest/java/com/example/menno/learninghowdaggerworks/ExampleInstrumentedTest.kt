@@ -21,4 +21,16 @@ class ExampleInstrumentedTest {
         val appContext = InstrumentationRegistry.getTargetContext()
         assertEquals("com.example.menno.learninghowdaggerworks", appContext.packageName)
     }
+
+    @Test
+    fun testAndroidTestInjection() {
+        val coffeeMaker = CoffeeMaker()
+
+        DaggerCoffeeMakerComponent.builder()
+                .coffeeMakerModule(AndroidTestCoffeeMakerModule())
+                .build()
+                .inject(coffeeMaker)
+
+        assertEquals("psssstttt from AndroidTest module!", coffeeMaker.compressor.logMessage)
+    }
 }
